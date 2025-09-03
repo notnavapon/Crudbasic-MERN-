@@ -1,10 +1,10 @@
 // rafce
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 import { remove, create, getdata } from "../functions/product";
 
 import { Link } from "react-router-dom";
+import "./FormProduct.css";
 
 const FormProduct = () => {
   //java script
@@ -51,62 +51,83 @@ const FormProduct = () => {
 
     remove(event)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         loadData();
       })
       .catch((error) => console.log(error));
   };
 
   return (
-    <div>
-      FormProduct
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          onChange={(event) => handleChange(event)}
-          placeholder="name"
-        ></input>
-        <input
-          type="text"
-          name="detail"
-          onChange={(event) => handleChange(event)}
-          placeholder="detail"
-        ></input>
-        <input
-          type="text"
-          name="price"
-          onChange={(event) => handleChange(event)}
-          placeholder="price"
-        ></input>
-        <button>Submit</button>
-      </form>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-            <th scope="col">action</th>
-            <th scope="col">edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data
-            ? data.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>{item.detail}</td>
-                  <td>{item.price}</td>
-                  <td onClick={() => handleRemove(item._id)}>delete</td>
-                  <td > <Link to={'/edit/' + item._id}>edit</Link></td>
-                </tr>
-              ))
-            : null}
-        </tbody>
-      </table>
+    <div className="page">
+      <h2 className="title">Product Manager</h2>
+
+      <div className="form-container">
+        <form onSubmit={handleSubmit} className="form">
+          <input
+            type="text"
+            name="name"
+            onChange={handleChange}
+            placeholder="Product Name"
+            className="form-input"
+          />
+          <input
+            type="text"
+            name="detail"
+            onChange={handleChange}
+            placeholder="Detail"
+            className="form-input"
+          />
+          <input
+            type="number"
+            name="price"
+            onChange={handleChange}
+            placeholder="Price"
+            className="form-input"
+          />
+          <button className="btn-submit">Submit</button>
+        </form>
+      </div>
+
+      <div className="table-container">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Detail</th>
+              <th>Price</th>
+              <th>Action</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data
+              ? data.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>{item.detail}</td>
+                    <td>{item.price}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn-danger"
+                        onClick={() => handleRemove(item._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                    <td>
+                      <Link to={`/edit/${item._id}`} className="btn-edit">
+                        Edit
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              : null}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

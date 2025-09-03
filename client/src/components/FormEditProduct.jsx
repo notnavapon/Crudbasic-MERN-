@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { read, update } from "../functions/product";
-
+import "./FormEditProduct.css";
 const FormEditProduct = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -46,31 +46,34 @@ const FormEditProduct = () => {
   };
 
   return (
-    <div>
-      <div>FormEditProduct</div>
-      <form onSubmit={handleSubmit}>
+    <div className="form-container">
+      <h2 className="form-title">Edit Product</h2>
+      <form className="form" onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
-          onChange={(event) => handleChange(event)}
-          placeholder="name"
+          onChange={handleChange}
+          placeholder="Product Name"
           value={data.name}
-        ></input>
+          className="form-input"
+        />
         <input
           type="text"
           name="detail"
-          onChange={(event) => handleChange(event)}
-          placeholder="detail"
+          onChange={handleChange}
+          placeholder="Detail"
           value={data.detail}
-        ></input>
+          className="form-input"
+        />
         <input
-          type="text"
+          type="number"
           name="price"
-          onChange={(event) => handleChange(event)}
-          placeholder="price"
+          onChange={handleChange}
+          placeholder="Price"
           value={data.price}
-        ></input>
-        <button>Submit</button>
+          className="form-input"
+        />
+        <button className="form-button">Save</button>
       </form>
     </div>
   );
