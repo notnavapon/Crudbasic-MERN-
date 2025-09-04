@@ -1,10 +1,20 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/auth',(req,res)=>{
-    res.send('Hello auth Endpoint')
-})
+const { register,login } = require('../Controllers/auth')
 
 
+
+//http://localhost:5000/api/register
+router.post('/register', register)
+router.post('/login', login)
+
+// router.post('/login', (req,res)=>{
+//     res.send('Hello Login')
+
+// })
+
+
+//post = font to back
 
 module.exports = router
